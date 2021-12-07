@@ -1,0 +1,21 @@
+server:
+  port: 7777
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:9999/eureka
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: test
+#          uri: http://localhost:10000 # http://localhost:8000/test -> http://localhost:10000
+          uri: lb://MSA # eureka 등록된 이름
+          predicates:
+            - Path=/test/** #  /test/**
